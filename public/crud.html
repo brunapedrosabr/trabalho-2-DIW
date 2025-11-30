@@ -47,16 +47,19 @@
               <li class="nav-item">
                 <a class="nav-link" href="mapa.html">Mapa</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" id="menu-favoritos" style="display: none">
                 <a class="nav-link" href="favoritos.html">Favoritos</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" id="menu-gerenciar" style="display: none">
                 <a class="nav-link active" href="crud.html">Gerenciar</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="index.html#sobre">Sobre mim</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" id="menu-login">
+                <a class="nav-link" href="login.html">Login</a>
+              </li>
+              <li class="nav-item" id="menu-logout" style="display: none">
                 <a class="nav-link" href="#" onclick="logoutUser()">
                   <i class="bi bi-person-circle"></i> Logout
                 </a>
@@ -129,6 +132,7 @@
 
         restaurantes.forEach((restaurante) => {
           const linha = document.createElement("tr");
+          // CORREÇÃO: Adicionadas aspas simples ao redor do ID
           linha.innerHTML = `
           <td>${restaurante.id}</td>
           <td>${restaurante.nome}</td>
@@ -139,7 +143,7 @@
             <a href="formulario.html?id=${restaurante.id}" class="btn btn-sm btn-warning" title="Editar">
               <i class="bi bi-pencil"></i>
             </a>
-            <button class="btn btn-sm btn-danger" onclick="confirmarExclusao(${restaurante.id})" title="Excluir">
+            <button class="btn btn-sm btn-danger" onclick="confirmarDelecao('${restaurante.id}')" title="Excluir">
               <i class="bi bi-trash"></i>
             </button>
             <a href="detalhe.html?id=${restaurante.id}" class="btn btn-sm btn-info" title="Ver detalhes">
@@ -151,7 +155,8 @@
         });
       }
 
-      async function confirmarExclusao(id) {
+      // CORREÇÃO: Renomeada de confirmarExclusao para confirmarDelecao (igual ao app.js)
+      async function confirmarDelecao(id) {
         if (confirm("Tem certeza que deseja excluir este restaurante?")) {
           const sucesso = await deletarRestaurante(id);
           if (sucesso) {
@@ -163,7 +168,33 @@
         }
       }
 
-      document.addEventListener("DOMContentLoaded", carregarTabela);
+      // Atualiza menu baseado no login
+      function atualizarMenu() {
+        const menuLogin = document.getElementById("menu-login");
+        const menuLogout = document.getElementById("menu-logout");
+        const menuFavoritos = document.getElementById("menu-favoritos");
+        const menuGerenciar = document.getElementById("menu-gerenciar");
+
+        if (verificarLogin()) {
+          if (menuLogin) menuLogin.style.display = "none";
+          if (menuLogout) menuLogout.style.display = "block";
+          if (menuFavoritos) menuFavoritos.style.display = "block";
+
+          if (isAdmin()) {
+            if (menuGerenciar) menuGerenciar.style.display = "block";
+          }
+        } else {
+          if (menuLogin) menuLogin.style.display = "block";
+          if (menuLogout) menuLogout.style.display = "none";
+          if (menuFavoritos) menuFavoritos.style.display = "none";
+          if (menuGerenciar) menuGerenciar.style.display = "none";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        atualizarMenu();
+        carregarTabela();
+      });
     </script>
   </body>
 </html>

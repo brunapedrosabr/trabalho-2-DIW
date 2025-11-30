@@ -141,7 +141,7 @@ async function montarCards() {
           <p class="card-text">${restaurante.descricao}</p>
           <div class="d-flex justify-content-between align-items-center">
             <a href="detalhe.html?id=${restaurante.id}" class="btn btn-detalhes">Ver detalhes</a>
-            <button class="btn btn-link ${corFavorito}" onclick="toggleFavorito(${restaurante.id}, event)">
+            <button class="btn btn-link ${corFavorito}" onclick="toggleFavorito('${restaurante.id}', event)">
               <i class="bi ${iconeFavorito} fs-4"></i>
             </button>
           </div>
@@ -156,7 +156,7 @@ async function montarCards() {
 // ID da URL
 function obterIdDaURL() {
   const parametros = new URLSearchParams(window.location.search);
-  return parseInt(parametros.get("id"));
+  return parametros.get("id");
 }
 
 // Função para mostrar detalhes do restaurante
@@ -205,7 +205,7 @@ async function mostrarDetalhes() {
           </a>
           
           <!-- Botão de Favorito -->
-          <button class="btn btn-link ${corFavorito}" onclick="toggleFavoritoDetalhes(${restaurante.id})" id="btn-favorito-detalhe">
+          <button class="btn btn-link ${corFavorito}" onclick="toggleFavoritoDetalhes('${restaurante.id}')" id="btn-favorito-detalhe">
             <i class="bi ${iconeFavorito} fs-1"></i>
           </button>
         </div>
@@ -215,7 +215,7 @@ async function mostrarDetalhes() {
           <button class="btn btn-warning" onclick="window.location.href='formulario.html?id=${restaurante.id}'">
             <i class="bi bi-pencil"></i> Editar
           </button>
-          <button class="btn btn-danger" onclick="confirmarDelecao(${restaurante.id})">
+          <button class="btn btn-danger" onclick="confirmarDelecao('${restaurante.id}')">
             <i class="bi bi-trash"></i> Deletar
           </button>
         </div>
@@ -487,7 +487,7 @@ function pesquisarRestaurantes() {
           <p class="card-text">${restaurante.descricao}</p>
           <div class="d-flex justify-content-between align-items-center">
             <a href="detalhe.html?id=${restaurante.id}" class="btn btn-detalhes">Ver detalhes</a>
-            <button class="btn btn-link ${corFavorito}" onclick="toggleFavorito(${restaurante.id}, event)">
+            <button class="btn btn-link ${corFavorito}" onclick="toggleFavorito('${restaurante.id}', event)">
               <i class="bi ${iconeFavorito} fs-4"></i>
             </button>
           </div>

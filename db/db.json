@@ -7,9 +7,7 @@
       "nome": "Administrador do Sistema",
       "email": "admin@gastrobh.com",
       "admin": true,
-      "favoritos": [
-        2
-      ]
+      "favoritos": []
     },
     {
       "id": "ec37c83d-4b7f-458d-9e10-3fda7d37cd3e",
@@ -27,9 +25,7 @@
       "nome": "Bruna",
       "email": "bruna@mail.com",
       "admin": false,
-      "favoritos": [
-        1
-      ]
+      "favoritos": []
     }
   ],
   "restaurantes": [

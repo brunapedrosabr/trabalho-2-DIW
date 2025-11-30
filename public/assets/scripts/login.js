@@ -1,5 +1,4 @@
 // Sistema de Login e Autenticação - GastroBH
-// Baseado no código fornecido pelo professor
 
 const LOGIN_URL = "login.html";
 const API_USUARIOS_URL = "http://localhost:3000/usuarios";
@@ -28,7 +27,7 @@ function generateUUID() {
 }
 
 // Inicializa o sistema de login
-function initLoginApp() {
+async function initLoginApp() {
   // Carrega usuário corrente do sessionStorage
   const usuarioCorrenteJSON = sessionStorage.getItem("usuarioCorrente");
   if (usuarioCorrenteJSON) {
@@ -36,18 +35,24 @@ function initLoginApp() {
   }
 
   // Carrega usuários do JSONServer
-  fetch(API_USUARIOS_URL)
-    .then((response) => response.json())
-    .then((data) => {
-      db_usuarios = data;
-    })
-    .catch((error) => {
-      console.error("Erro ao carregar usuários:", error);
-    });
+  try {
+    const response = await fetch(API_USUARIOS_URL);
+    db_usuarios = await response.json();
+  } catch (error) {
+    console.error("Erro ao carregar usuários:", error);
+  }
 }
 
 // Função de login
-function loginUser(login, senha) {
+async function loginUser(login, senha) {
+  // Recarrega usuários para garantir dados atualizados
+  try {
+    const response = await fetch(API_USUARIOS_URL);
+    db_usuarios = await response.json();
+  } catch (error) {
+    console.error("Erro ao carregar usuários:", error);
+  }
+
   for (let i = 0; i < db_usuarios.length; i++) {
     const usuario = db_usuarios[i];
 
@@ -58,6 +63,7 @@ function loginUser(login, senha) {
         email: usuario.email,
         nome: usuario.nome,
         admin: usuario.admin || false,
+        favoritos: usuario.favoritos || [],
       };
 
       sessionStorage.setItem(
@@ -77,8 +83,31 @@ function logoutUser() {
   window.location.href = "index.html";
 }
 
-// Adicionar novo usuário
+// Adicionar novo usuário com validação de duplicados
 async function addUser(nome, login, senha, email) {
+  // Recarrega usuários para garantir dados atualizados
+  try {
+    const response = await fetch(API_USUARIOS_URL);
+    db_usuarios = await response.json();
+  } catch (error) {
+    console.error("Erro ao carregar usuários:", error);
+    return false;
+  }
+
+  // Verifica se o login já existe
+  const loginExistente = db_usuarios.find((u) => u.login === login);
+  if (loginExistente) {
+    alert("Este nome de usuário já está em uso. Escolha outro.");
+    return false;
+  }
+
+  // Verifica se o email já existe
+  const emailExistente = db_usuarios.find((u) => u.email === email);
+  if (emailExistente) {
+    alert("Este e-mail já está cadastrado.");
+    return false;
+  }
+
   const usuario = {
     id: generateUUID(),
     login: login,
@@ -129,8 +158,16 @@ async function adicionarFavorito(restauranteId) {
     usuarioCorrente.favoritos = [];
   }
 
-  if (!usuarioCorrente.favoritos.includes(restauranteId)) {
-    usuarioCorrente.favoritos.push(restauranteId);
+  // Converte para string para comparação consistente
+  const idString = String(restauranteId);
+
+  // Verifica se já existe (comparando como string)
+  const jaExiste = usuarioCorrente.favoritos.some(
+    (fav) => String(fav) === idString
+  );
+
+  if (!jaExiste) {
+    usuarioCorrente.favoritos.push(idString);
 
     try {
       await fetch(`${API_USUARIOS_URL}/${usuarioCorrente.id}`, {
@@ -159,7 +196,12 @@ async function removerFavorito(restauranteId) {
   if (!verificarLogin()) return false;
 
   if (usuarioCorrente.favoritos) {
-    const index = usuarioCorrente.favoritos.indexOf(restauranteId);
+    // Converte para string para comparação consistente
+    const idString = String(restauranteId);
+    const index = usuarioCorrente.favoritos.findIndex(
+      (fav) => String(fav) === idString
+    );
+
     if (index > -1) {
       usuarioCorrente.favoritos.splice(index, 1);
 
@@ -189,10 +231,11 @@ async function removerFavorito(restauranteId) {
 // Verificar se restaurante é favorito
 function isFavorito(restauranteId) {
   if (!verificarLogin()) return false;
-  return (
-    usuarioCorrente.favoritos &&
-    usuarioCorrente.favoritos.includes(restauranteId)
-  );
+  if (!usuarioCorrente.favoritos) return false;
+
+  // Converte para string para comparação consistente
+  const idString = String(restauranteId);
+  return usuarioCorrente.favoritos.some((fav) => String(fav) === idString);
 }
 
 // Inicializa o sistema

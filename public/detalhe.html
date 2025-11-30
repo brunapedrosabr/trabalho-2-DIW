@@ -47,8 +47,25 @@
               <li class="nav-item">
                 <a class="nav-link" href="mapa.html">Mapa</a>
               </li>
+              <!-- Apenas para usuários logados -->
+              <li class="nav-item" id="menu-favoritos" style="display: none">
+                <a class="nav-link" href="favoritos.html">Favoritos</a>
+              </li>
+              <!-- Apenas para administradores -->
+              <li class="nav-item" id="menu-gerenciar" style="display: none">
+                <a class="nav-link" href="crud.html">Gerenciar</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link" href="index.html#sobre">Sobre mim</a>
+              </li>
+              <!-- Login/Logout -->
+              <li class="nav-item" id="menu-login">
+                <a class="nav-link" href="login.html">Login</a>
+              </li>
+              <li class="nav-item" id="menu-logout" style="display: none">
+                <a class="nav-link" href="#" onclick="logoutUser()">
+                  <i class="bi bi-person-circle"></i> Logout
+                </a>
               </li>
             </ul>
           </div>
@@ -69,5 +86,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="assets/scripts/login.js"></script>
     <script src="assets/scripts/app.js"></script>
+    <script>
+      // Atualiza menu baseado no login
+      function atualizarMenu() {
+        const menuLogin = document.getElementById("menu-login");
+        const menuLogout = document.getElementById("menu-logout");
+        const menuFavoritos = document.getElementById("menu-favoritos");
+        const menuGerenciar = document.getElementById("menu-gerenciar");
+
+        if (verificarLogin()) {
+          if (menuLogin) menuLogin.style.display = "none";
+          if (menuLogout) menuLogout.style.display = "block";
+          if (menuFavoritos) menuFavoritos.style.display = "block";
+
+          if (isAdmin()) {
+            if (menuGerenciar) menuGerenciar.style.display = "block";
+          }
+        } else {
+          if (menuLogin) menuLogin.style.display = "block";
+          if (menuLogout) menuLogout.style.display = "none";
+          if (menuFavoritos) menuFavoritos.style.display = "none";
+          if (menuGerenciar) menuGerenciar.style.display = "none";
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", atualizarMenu);
+    </script>
   </body>
 </html>
