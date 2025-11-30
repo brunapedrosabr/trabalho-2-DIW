@@ -110,7 +110,7 @@
         <div class="container">
           <h2 class="titulo-secao">Todos os Restaurantes</h2>
 
-          <!-- Campo de Pesquisa -->
+          <!-- Pesquisa -->
           <div class="row mb-4">
             <div class="col-md-6 offset-md-3">
               <div class="input-group">
@@ -144,7 +144,7 @@
               <div class="caixa-sobre">
                 <h3>Sobre</h3>
                 <p>
-                  Este site foi desenvolvido como Trabalho Prático 1 da
+                  Este site foi desenvolvido como Trabalho Prático 2 da
                   disciplina de Desenvolvimento de Interfaces Web do 1° período
                   do curso de Engenharia de Software da PUC Minas cujo professor
                   orientador é Diego Augusto de Faria Barros. O objetivo é
@@ -226,8 +226,7 @@
           document.getElementById("menu-login").style.display = "none";
           document.getElementById("menu-logout").style.display = "block";
           document.getElementById("menu-favoritos").style.display = "block";
-
-          // Se for admin, mostra menu gerenciar e botão de adicionar
+          // Se for admin, mostra menu com "gerenciar" e botão de adicionar
           if (isAdmin()) {
             document.getElementById("menu-gerenciar").style.display = "block";
             document.getElementById("btn-adicionar").style.display = "flex";

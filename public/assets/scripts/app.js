@@ -179,7 +179,7 @@ async function mostrarDetalhes() {
   const iconeFavorito = favorito ? "bi-heart-fill" : "bi-heart";
   const corFavorito = favorito ? "text-danger" : "";
 
-  // Montar galeria de fotos
+  // Galeria de fotos
   let fotosHTML = "";
   if (restaurante.fotos && restaurante.fotos.length > 0) {
     restaurante.fotos.forEach((foto) => {
@@ -252,13 +252,13 @@ async function mostrarDetalhes() {
     </section>
   `;
 
-  // Mostra botões de admin se for administrador
+  // Botões de admin
   if (isAdmin()) {
     document.getElementById("acoes-admin").style.display = "block";
   }
 }
 
-// Função para toggle de favorito na página de detalhes
+// Favorito em detalhes
 async function toggleFavoritoDetalhes(restauranteId) {
   if (!verificarLogin()) {
     alert("Faça login para adicionar favoritos!");
@@ -272,7 +272,7 @@ async function toggleFavoritoDetalhes(restauranteId) {
     await adicionarFavorito(restauranteId);
   }
 
-  // Atualiza o ícone
+  // Atualiza o ícone de favorito
   const favorito = isFavorito(restauranteId);
   const btn = document.getElementById("btn-favorito-detalhe");
   const icone = btn.querySelector("i");
@@ -288,7 +288,7 @@ async function toggleFavoritoDetalhes(restauranteId) {
   }
 }
 
-// Deletar restaurante selecionado
+// DELETE restaurante específico
 async function confirmarDelecao(id) {
   if (confirm("Tem certeza que deseja deletar este restaurante?")) {
     const sucesso = await deletarRestaurante(id);
@@ -301,12 +301,12 @@ async function confirmarDelecao(id) {
   }
 }
 
-// Redirecionamento para edição
+// Ir para edição
 function editarRestaurante(id) {
   window.location.href = `formulario.html?id=${id}`;
 }
 
-// Função para preencher formulário (edição)
+// Preencher formulário
 async function preencherFormulario() {
   const id = obterIdDaURL();
 
@@ -331,7 +331,7 @@ async function preencherFormulario() {
       document.getElementById("imagem_principal").value =
         restaurante.imagem_principal;
 
-      // Preenche fotos adicionais
+      // Adição das fotos adicionais
       if (restaurante.fotos && restaurante.fotos.length > 0) {
         if (restaurante.fotos[0]) {
           document.getElementById("foto1_url").value =
@@ -356,13 +356,12 @@ async function preencherFormulario() {
   }
 }
 
-// Função para salvar restaurante (criar ou atualizar)
+// Função para criar ou atualizar restaurante específico
 async function salvarRestaurante(event) {
   event.preventDefault();
 
   const id = obterIdDaURL();
 
-  // Monta array de fotos
   const fotos = [];
 
   // Foto 1
@@ -473,7 +472,7 @@ function pesquisarRestaurantes() {
     const coluna = document.createElement("div");
     coluna.classList.add("col-md-4", "col-sm-6", "mb-4");
 
-    // Verifica se é favorito
+    // Verificando se é favorito
     const favorito = isFavorito(restaurante.id);
     const iconeFavorito = favorito ? "bi-heart-fill" : "bi-heart";
     const corFavorito = favorito ? "text-danger" : "";
@@ -499,10 +498,9 @@ function pesquisarRestaurantes() {
   });
 }
 
-// Adiciona variável global para armazenar todos os restaurantes
 let todosRestaurantes = [];
 
-// Função para alternar favorito
+// Função para mudar favorito
 async function toggleFavorito(restauranteId, event) {
   event.preventDefault();
 
@@ -518,6 +516,5 @@ async function toggleFavorito(restauranteId, event) {
     await adicionarFavorito(restauranteId);
   }
 
-  // Recarrega os cards
   montarCards();
 }

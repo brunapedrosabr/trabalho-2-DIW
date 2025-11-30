@@ -10,7 +10,6 @@ let map;
 let marcadores = [];
 let todosRestaurantes = [];
 
-// Cores para as diferentes categorias
 const coresCategorias = {
   "Frutos do Mar": "#3498db",
   Francesa: "#e74c3c",
@@ -21,7 +20,7 @@ const coresCategorias = {
   Italiana: "#16a085",
 };
 
-// Inicializar o mapa
+// Inicializa o mapa
 function inicializarMapa() {
   map = new mapboxgl.Map({
     container: "map",
@@ -34,7 +33,7 @@ function inicializarMapa() {
   map.addControl(new mapboxgl.NavigationControl());
 }
 
-// Buscar restauranter
+// Buscar restaurantes
 async function buscarRestaurantes() {
   try {
     const response = await fetch(API_URL);
@@ -57,7 +56,7 @@ function adicionarMarcadores(restaurantes) {
       const lng = parseFloat(restaurante.longitude);
       const cor = coresCategorias[restaurante.categoria] || "#95a5a6";
 
-      // Popup
+      // Popup - restaurante
       const popupHTML = `
         <div class="popup-restaurante">
           <img src="${restaurante.imagem_principal}" alt="${restaurante.nome}" class="popup-imagem">
@@ -67,7 +66,7 @@ function adicionarMarcadores(restaurantes) {
           <p class="popup-info"><i class="bi bi-geo-alt"></i> ${restaurante.endereco}</p>
           <p class="popup-info"><i class="bi bi-telephone"></i> ${restaurante.telefone}</p>
           <p class="popup-info"><i class="bi bi-cash"></i> ${restaurante.preco_medio}</p>
-          <a href="detalhe.html?id=${restaurante.id}" class="btn btn-sm btn-primary w-100 mt-2" target="_blank">Ver detalhes</a>
+          <a href="detalhe.html?id=${restaurante.id}" class="btn btn-sm btn-primary w-100 mt-2">Ver detalhes</a>
         </div>
       `;
 

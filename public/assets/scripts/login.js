@@ -1,15 +1,10 @@
-// Sistema de Login e Autenticação - GastroBH
-
 const LOGIN_URL = "login.html";
 const API_USUARIOS_URL = "http://localhost:3000/usuarios";
 
-// Objeto para o usuário corrente
 var usuarioCorrente = {};
-
-// Banco de dados de usuários
 var db_usuarios = [];
 
-// Função para gerar UUID
+// Função para gerar id único
 function generateUUID() {
   var d = new Date().getTime();
   var d2 = (performance && performance.now && performance.now() * 1000) || 0;
@@ -26,15 +21,13 @@ function generateUUID() {
   });
 }
 
-// Inicializa o sistema de login
+// Inicializando o sistema de login
 async function initLoginApp() {
-  // Carrega usuário corrente do sessionStorage
   const usuarioCorrenteJSON = sessionStorage.getItem("usuarioCorrente");
   if (usuarioCorrenteJSON) {
     usuarioCorrente = JSON.parse(usuarioCorrenteJSON);
   }
 
-  // Carrega usuários do JSONServer
   try {
     const response = await fetch(API_USUARIOS_URL);
     db_usuarios = await response.json();
@@ -45,7 +38,6 @@ async function initLoginApp() {
 
 // Função de login
 async function loginUser(login, senha) {
-  // Recarrega usuários para garantir dados atualizados
   try {
     const response = await fetch(API_USUARIOS_URL);
     db_usuarios = await response.json();
@@ -83,9 +75,8 @@ function logoutUser() {
   window.location.href = "index.html";
 }
 
-// Adicionar novo usuário com validação de duplicados
+// Adicionando novo usuário com validação de usuário repetido
 async function addUser(nome, login, senha, email) {
-  // Recarrega usuários para garantir dados atualizados
   try {
     const response = await fetch(API_USUARIOS_URL);
     db_usuarios = await response.json();
@@ -94,14 +85,14 @@ async function addUser(nome, login, senha, email) {
     return false;
   }
 
-  // Verifica se o login já existe
+  // Verificando se o login já existe
   const loginExistente = db_usuarios.find((u) => u.login === login);
   if (loginExistente) {
     alert("Este nome de usuário já está em uso. Escolha outro.");
     return false;
   }
 
-  // Verifica se o email já existe
+  // Verificando se o email já existe
   const emailExistente = db_usuarios.find((u) => u.email === email);
   if (emailExistente) {
     alert("Este e-mail já está cadastrado.");
@@ -136,12 +127,12 @@ async function addUser(nome, login, senha, email) {
   }
 }
 
-// Verifica se usuário está logado
+// Verificando se usuário está logado
 function verificarLogin() {
   return usuarioCorrente && usuarioCorrente.login;
 }
 
-// Verifica se usuário é admin
+// Verificando se usuário é admin
 function isAdmin() {
   return usuarioCorrente && usuarioCorrente.admin === true;
 }
@@ -158,10 +149,8 @@ async function adicionarFavorito(restauranteId) {
     usuarioCorrente.favoritos = [];
   }
 
-  // Converte para string para comparação consistente
   const idString = String(restauranteId);
 
-  // Verifica se já existe (comparando como string)
   const jaExiste = usuarioCorrente.favoritos.some(
     (fav) => String(fav) === idString
   );
@@ -196,7 +185,6 @@ async function removerFavorito(restauranteId) {
   if (!verificarLogin()) return false;
 
   if (usuarioCorrente.favoritos) {
-    // Converte para string para comparação consistente
     const idString = String(restauranteId);
     const index = usuarioCorrente.favoritos.findIndex(
       (fav) => String(fav) === idString
@@ -228,15 +216,13 @@ async function removerFavorito(restauranteId) {
   return false;
 }
 
-// Verificar se restaurante é favorito
+// Verificando se restaurante é favorito
 function isFavorito(restauranteId) {
   if (!verificarLogin()) return false;
   if (!usuarioCorrente.favoritos) return false;
 
-  // Converte para string para comparação consistente
   const idString = String(restauranteId);
   return usuarioCorrente.favoritos.some((fav) => String(fav) === idString);
 }
 
-// Inicializa o sistema
 initLoginApp();

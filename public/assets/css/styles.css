@@ -261,7 +261,7 @@ body {
   font-weight: 600;
 }
 
-/* Botão para adicionar novo restaurante */
+/* Adicionar novo restaurante */
 .btn-adicionar {
   position: fixed;
   bottom: 30px;
@@ -298,7 +298,7 @@ body {
   width: 100%;
 }
 
-/* Estilos do Mapbox */
+/* Mapbox */
 .mapboxgl-popup-content {
   padding: 0;
   border-radius: 10px;
@@ -398,7 +398,7 @@ body {
   margin-right: 5px;
 }
 
-/* Estilo do marcador*/
+/* Marcador do mapa */
 .marcador-personalizado {
   background: transparent;
   border: none;
@@ -433,7 +433,7 @@ body {
   margin: 0;
 }
 
-/* Página de Detalhes */
+/* Detalhes */
 .secao-detalhes {
   padding: 40px 0;
 }

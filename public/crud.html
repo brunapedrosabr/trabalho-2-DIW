@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gerenciar - GastroBH</title>
+    <title>Gerenciar</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,6 +13,142 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <style>
+      .table-responsive-custom {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      @media (min-width: 1400px) {
+        .container-crud {
+          max-width: 1600px;
+        }
+      }
+
+      @media (min-width: 1200px) and (max-width: 1399px) {
+        .container-crud {
+          max-width: 1320px;
+        }
+      }
+
+      @media (min-width: 769px) {
+        .table-mobile {
+          display: table;
+          width: 100%;
+        }
+
+        .cards-mobile {
+          display: none;
+        }
+
+        .table thead th:nth-child(1) {
+          width: 8%;
+        }
+        .table thead th:nth-child(2) {
+          width: 18%;
+        }
+        .table thead th:nth-child(3) {
+          width: 12%;
+        }
+        .table thead th:nth-child(4) {
+          width: 32%;
+        }
+        .table thead th:nth-child(5) {
+          width: 15%;
+        }
+        .table thead th:nth-child(6) {
+          width: 15%;
+        }
+
+        .table .btn-sm {
+          margin: 2px;
+          padding: 6px 12px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .table-mobile {
+          display: none;
+        }
+
+        .cards-mobile {
+          display: block;
+        }
+
+        .card-restaurante {
+          background: white;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          padding: 15px;
+          margin-bottom: 15px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-restaurante h5 {
+          color: #ff8c42;
+          margin-bottom: 10px;
+          font-size: 1.1rem;
+        }
+
+        .card-restaurante .info-line {
+          display: flex;
+          margin-bottom: 8px;
+          font-size: 0.9rem;
+        }
+
+        .card-restaurante .info-label {
+          font-weight: 600;
+          min-width: 80px;
+          color: #666;
+        }
+
+        .card-restaurante .info-value {
+          flex: 1;
+          color: #333;
+        }
+
+        .card-restaurante .acoes {
+          display: flex;
+          gap: 8px;
+          margin-top: 15px;
+          flex-wrap: wrap;
+        }
+
+        .card-restaurante .btn-sm {
+          flex: 1;
+          min-width: 100px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .titulo-secao {
+          font-size: 1.3rem;
+        }
+
+        .card-restaurante .acoes .btn-sm {
+          font-size: 0.8rem;
+          padding: 6px 10px;
+        }
+
+        .btn-success {
+          font-size: 0.9rem;
+          padding: 8px 16px;
+        }
+      }
+
+      .secao-crud {
+        min-height: calc(100vh - 200px);
+      }
+
+      .titulo-secao {
+        margin-bottom: 30px;
+      }
+
+      .badge {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+      }
+    </style>
   </head>
   <body>
     <!-- Cabeçalho -->
@@ -71,7 +207,7 @@
     </header>
 
     <main class="secao-crud py-4">
-      <div class="container">
+      <div class="container container-crud">
         <h2 class="titulo-secao">
           <i class="bi bi-gear-fill"></i> Gerenciar Restaurantes
         </h2>
@@ -84,24 +220,32 @@
           </div>
         </div>
 
-        <div class="row">
+        <!-- Versão tabela para computador -->
+        <div class="row table-mobile">
           <div class="col-12">
-            <table class="table table-striped table-hover">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Nome</th>
-                  <th>Categoria</th>
-                  <th>Endereço</th>
-                  <th>Telefone</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody id="tabela-restaurantes">
-                <!-- Preenchido dinamicamente -->
-              </tbody>
-            </table>
+            <div class="table-responsive-custom">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Categoria</th>
+                    <th>Endereço</th>
+                    <th>Telefone</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody id="tabela-restaurantes">
+                  <!-- Preenchido dinamicamente -->
+                </tbody>
+              </table>
+            </div>
           </div>
+        </div>
+
+        <!-- Versão cards para celular -->
+        <div class="cards-mobile" id="cards-restaurantes">
+          <!-- Preenchido dinamicamente -->
         </div>
       </div>
     </main>
@@ -117,22 +261,21 @@
     <script src="assets/scripts/login.js"></script>
     <script src="assets/scripts/app.js"></script>
     <script>
-      // Verifica se é admin
       if (!isAdmin()) {
         alert("Acesso restrito a administradores!");
         window.location.href = "index.html";
       }
 
-      // Carrega restaurantes na tabela
       async function carregarTabela() {
         const restaurantes = await buscarRestaurantes();
         const tabela = document.getElementById("tabela-restaurantes");
+        const cardsContainer = document.getElementById("cards-restaurantes");
 
         tabela.innerHTML = "";
+        cardsContainer.innerHTML = "";
 
         restaurantes.forEach((restaurante) => {
           const linha = document.createElement("tr");
-          // CORREÇÃO: Adicionadas aspas simples ao redor do ID
           linha.innerHTML = `
           <td>${restaurante.id}</td>
           <td>${restaurante.nome}</td>
@@ -152,10 +295,43 @@
           </td>
         `;
           tabela.appendChild(linha);
+
+          const card = document.createElement("div");
+          card.classList.add("card-restaurante");
+          card.innerHTML = `
+          <h5>${restaurante.nome}</h5>
+          <div class="info-line">
+            <span class="info-label">ID:</span>
+            <span class="info-value">${restaurante.id}</span>
+          </div>
+          <div class="info-line">
+            <span class="info-label">Categoria:</span>
+            <span class="info-value"><span class="badge">${restaurante.categoria}</span></span>
+          </div>
+          <div class="info-line">
+            <span class="info-label">Endereço:</span>
+            <span class="info-value">${restaurante.endereco}</span>
+          </div>
+          <div class="info-line">
+            <span class="info-label">Telefone:</span>
+            <span class="info-value">${restaurante.telefone}</span>
+          </div>
+          <div class="acoes">
+            <a href="formulario.html?id=${restaurante.id}" class="btn btn-sm btn-warning">
+              <i class="bi bi-pencil"></i> Editar
+            </a>
+            <button class="btn btn-sm btn-danger" onclick="confirmarDelecao('${restaurante.id}')">
+              <i class="bi bi-trash"></i> Excluir
+            </button>
+            <a href="detalhe.html?id=${restaurante.id}" class="btn btn-sm btn-info">
+              <i class="bi bi-eye"></i> Ver
+            </a>
+          </div>
+        `;
+          cardsContainer.appendChild(card);
         });
       }
 
-      // CORREÇÃO: Renomeada de confirmarExclusao para confirmarDelecao (igual ao app.js)
       async function confirmarDelecao(id) {
         if (confirm("Tem certeza que deseja excluir este restaurante?")) {
           const sucesso = await deletarRestaurante(id);
@@ -168,7 +344,6 @@
         }
       }
 
-      // Atualiza menu baseado no login
       function atualizarMenu() {
         const menuLogin = document.getElementById("menu-login");
         const menuLogout = document.getElementById("menu-logout");
