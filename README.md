@@ -11,3 +11,5 @@
 - Caso queira testar o login para acesso de administrador:
   login: admin
   senha: 123
+
+Para iniciar o servidor, digite no terminal: npm run server
