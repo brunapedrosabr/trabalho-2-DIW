@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GastroBH</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <script src="assets/scripts/login.js"></script>
+  </head>
+  <body>
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand logo" href="index.html">
+            <img
+              src="assets/img/Logo GastroBH.png"
+              alt="Logo GastroBH"
+              class="logo-img"
+            />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#menu"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#inicio">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#restaurantes">Restaurantes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="mapa.html">Mapa</a>
+              </li>
+              <!-- Apenas para usuários logados -->
+              <li class="nav-item" id="menu-favoritos" style="display: none">
+                <a class="nav-link" href="favoritos.html">Favoritos</a>
+              </li>
+              <!-- Apenas para administradores -->
+              <li class="nav-item" id="menu-gerenciar" style="display: none">
+                <a class="nav-link" href="crud.html">Gerenciar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#sobre">Sobre mim</a>
+              </li>
+              <!-- Login/Logout -->
+              <li class="nav-item" id="menu-login">
+                <a class="nav-link" href="login.html">Login</a>
+              </li>
+              <li class="nav-item" id="menu-logout" style="display: none">
+                <a class="nav-link" href="#" onclick="logoutUser()">
+                  <i class="bi bi-person-circle"></i> Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Carrossel -->
+      <section id="inicio" class="secao-carrossel">
+        <div class="container">
+          <h2 class="titulo-secao">Restaurantes em Destaque</h2>
+
+          <div
+            id="carrosselPrincipal"
+            class="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div class="carousel-indicators" id="indicadores-carrossel"></div>
+            <div class="carousel-inner" id="conteudo-carrossel"></div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carrosselPrincipal"
+              data-bs-slide="prev"
+            >
+              <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carrosselPrincipal"
+              data-bs-slide="next"
+            >
+              <span class="carousel-control-next-icon"></span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Todos os Restaurantes -->
+      <section id="restaurantes" class="secao-restaurantes">
+        <div class="container">
+          <h2 class="titulo-secao">Todos os Restaurantes</h2>
+
+          <!-- Campo de Pesquisa -->
+          <div class="row mb-4">
+            <div class="col-md-6 offset-md-3">
+              <div class="input-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="campo-pesquisa"
+                  placeholder="Pesquisar restaurantes..."
+                />
+                <button
+                  class="btn btn-primary"
+                  onclick="pesquisarRestaurantes()"
+                >
+                  <i class="bi bi-search"></i> Pesquisar
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" id="container-cards"></div>
+        </div>
+      </section>
+
+      <!-- Informações do Aluno -->
+      <section id="sobre" class="secao-aluno">
+        <div class="container">
+          <h2 class="titulo-secao">Informações do Aluno</h2>
+          <div class="row">
+            <!-- Sobre -->
+            <div class="col-md-6 mb-4 mb-md-0">
+              <div class="caixa-sobre">
+                <h3>Sobre</h3>
+                <p>
+                  Este site foi desenvolvido como Trabalho Prático 1 da
+                  disciplina de Desenvolvimento de Interfaces Web do 1° período
+                  do curso de Engenharia de Software da PUC Minas cujo professor
+                  orientador é Diego Augusto de Faria Barros. O objetivo é
+                  apresentar um guia gastronômico de Belo Horizonte, destacando
+                  restaurantes de diferentes categorias e estilos culinários.
+                </p>
+                <p>
+                  O projeto utiliza HTML, CSS, JavaScript e Bootstrap contendo
+                  responsividade, além de dados armazenados em estrutura JSON e
+                  processados dinamicamente através do JavaScript.
+                </p>
+              </div>
+            </div>
+
+            <!-- Autoria -->
+            <div class="col-md-6">
+              <div class="caixa-autoria">
+                <h3>Autoria</h3>
+                <div class="info-aluno">
+                  <div class="foto-aluno">
+                    <img
+                      src="assets/img/avatar_bruna.jpeg"
+                      alt="Avatar Bruna"
+                    />
+                  </div>
+                  <div class="dados-aluno">
+                    <p><strong>Nome:</strong> Bruna Pedrosa Nunes</p>
+                    <p><strong>Curso:</strong> Engenharia de Software</p>
+                    <p><strong>Turno:</strong> Noturno</p>
+                    <div class="redes-sociais">
+                      <strong>Redes Sociais:</strong>
+                      <a
+                        href="https://github.com/brunapedrosabr"
+                        target="_blank"
+                        class="link-rede"
+                        ><i class="bi bi-github"></i
+                      ></a>
+                      <a
+                        href="https://www.linkedin.com/in/brunapedrosabr/"
+                        target="_blank"
+                        class="link-rede"
+                        ><i class="bi bi-linkedin"></i
+                      ></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Botão de adicionar novo restaurante-->
+    <a
+      href="formulario.html"
+      class="btn-adicionar"
+      id="btn-adicionar"
+      title="Adicionar Restaurante"
+      style="display: none"
+    >
+      <i class="bi bi-plus"></i>
+    </a>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+      <div class="container">
+        <p>© 2025 GastroBH - Todos os direitos reservados</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/scripts/app.js"></script>
+    <script>
+      // Atualiza menu baseado no login
+      document.addEventListener("DOMContentLoaded", () => {
+        if (verificarLogin()) {
+          // Usuário logado
+          document.getElementById("menu-login").style.display = "none";
+          document.getElementById("menu-logout").style.display = "block";
+          document.getElementById("menu-favoritos").style.display = "block";
+
+          // Se for admin, mostra menu gerenciar e botão de adicionar
+          if (isAdmin()) {
+            document.getElementById("menu-gerenciar").style.display = "block";
+            document.getElementById("btn-adicionar").style.display = "flex";
+          }
+        } else {
+          // Usuário não logado
+          document.getElementById("menu-login").style.display = "block";
+          document.getElementById("menu-logout").style.display = "none";
+          document.getElementById("menu-favoritos").style.display = "none";
+          document.getElementById("menu-gerenciar").style.display = "none";
+          document.getElementById("btn-adicionar").style.display = "none";
+        }
+      });
+    </script>
+  </body>
+</html>

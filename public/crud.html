@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerenciar - GastroBH</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand logo" href="index.html">
+            <img
+              src="assets/img/Logo GastroBH.png"
+              alt="Logo GastroBH"
+              class="logo-img"
+            />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#menu"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#inicio">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#restaurantes"
+                  >Restaurantes</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="mapa.html">Mapa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="favoritos.html">Favoritos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="crud.html">Gerenciar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#sobre">Sobre mim</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="logoutUser()">
+                  <i class="bi bi-person-circle"></i> Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="secao-crud py-4">
+      <div class="container">
+        <h2 class="titulo-secao">
+          <i class="bi bi-gear-fill"></i> Gerenciar Restaurantes
+        </h2>
+
+        <div class="row mb-4">
+          <div class="col-12 text-end">
+            <a href="formulario.html" class="btn btn-success">
+              <i class="bi bi-plus-circle"></i> Novo Restaurante
+            </a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>Categoria</th>
+                  <th>Endereço</th>
+                  <th>Telefone</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tabela-restaurantes">
+                <!-- Preenchido dinamicamente -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+      <div class="container">
+        <p>© 2025 GastroBH - Todos os direitos reservados</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/scripts/login.js"></script>
+    <script src="assets/scripts/app.js"></script>
+    <script>
+      // Verifica se é admin
+      if (!isAdmin()) {
+        alert("Acesso restrito a administradores!");
+        window.location.href = "index.html";
+      }
+
+      // Carrega restaurantes na tabela
+      async function carregarTabela() {
+        const restaurantes = await buscarRestaurantes();
+        const tabela = document.getElementById("tabela-restaurantes");
+
+        tabela.innerHTML = "";
+
+        restaurantes.forEach((restaurante) => {
+          const linha = document.createElement("tr");
+          linha.innerHTML = `
+          <td>${restaurante.id}</td>
+          <td>${restaurante.nome}</td>
+          <td><span class="badge">${restaurante.categoria}</span></td>
+          <td>${restaurante.endereco}</td>
+          <td>${restaurante.telefone}</td>
+          <td>
+            <a href="formulario.html?id=${restaurante.id}" class="btn btn-sm btn-warning" title="Editar">
+              <i class="bi bi-pencil"></i>
+            </a>
+            <button class="btn btn-sm btn-danger" onclick="confirmarExclusao(${restaurante.id})" title="Excluir">
+              <i class="bi bi-trash"></i>
+            </button>
+            <a href="detalhe.html?id=${restaurante.id}" class="btn btn-sm btn-info" title="Ver detalhes">
+              <i class="bi bi-eye"></i>
+            </a>
+          </td>
+        `;
+          tabela.appendChild(linha);
+        });
+      }
+
+      async function confirmarExclusao(id) {
+        if (confirm("Tem certeza que deseja excluir este restaurante?")) {
+          const sucesso = await deletarRestaurante(id);
+          if (sucesso) {
+            alert("Restaurante excluído com sucesso!");
+            carregarTabela();
+          } else {
+            alert("Erro ao excluir restaurante.");
+          }
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", carregarTabela);
+    </script>
+  </body>
+</html>

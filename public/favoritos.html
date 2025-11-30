@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Favoritos - GastroBH</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand logo" href="index.html">
+            <img
+              src="assets/img/Logo GastroBH.png"
+              alt="Logo GastroBH"
+              class="logo-img"
+            />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#menu"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#inicio">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#restaurantes"
+                  >Restaurantes</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="mapa.html">Mapa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="favoritos.html">Favoritos</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#sobre">Sobre mim</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#" onclick="logoutUser()">
+                  <i class="bi bi-person-circle"></i> Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="secao-favoritos">
+      <div class="container">
+        <h2 class="titulo-secao">
+          <i class="bi bi-heart-fill text-danger"></i> Meus Favoritos
+        </h2>
+
+        <div class="row" id="container-favoritos">
+          <!-- Preenchido dinamicamente -->
+        </div>
+      </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+      <div class="container">
+        <p>© 2025 GastroBH - Todos os direitos reservados</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/scripts/login.js"></script>
+    <script src="assets/scripts/app.js"></script>
+    <script>
+      // Verifica se usuário está logado
+      if (!verificarLogin()) {
+        alert("Faça login para ver seus favoritos!");
+        window.location.href = "login.html";
+      }
+
+      // Carrega favoritos
+      async function carregarFavoritos() {
+        if (
+          !usuarioCorrente.favoritos ||
+          usuarioCorrente.favoritos.length === 0
+        ) {
+          document.getElementById("container-favoritos").innerHTML = `
+          <div class="col-12">
+            <div class="alert alert-info text-center">
+              <i class="bi bi-heart"></i> Você ainda não tem favoritos.
+              <br>
+              <a href="index.html#restaurantes" class="btn btn-primary mt-3">
+                Ver Restaurantes
+              </a>
+            </div>
+          </div>
+        `;
+          return;
+        }
+
+        const restaurantes = await buscarRestaurantes();
+        const favoritos = restaurantes.filter((r) =>
+          usuarioCorrente.favoritos.includes(r.id)
+        );
+        const container = document.getElementById("container-favoritos");
+
+        container.innerHTML = "";
+
+        favoritos.forEach((restaurante) => {
+          const coluna = document.createElement("div");
+          coluna.classList.add("col-md-4", "col-sm-6", "mb-4");
+
+          coluna.innerHTML = `
+          <div class="card">
+            <img src="${restaurante.imagem_principal}" class="card-img-top" alt="${restaurante.nome}">
+            <div class="card-body">
+              <span class="badge">${restaurante.categoria}</span>
+              <h5 class="card-title">${restaurante.nome}</h5>
+              <p class="card-text">${restaurante.descricao}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <a href="detalhe.html?id=${restaurante.id}" class="btn btn-detalhes">Ver detalhes</a>
+                <button class="btn btn-link text-danger" onclick="removerFavoritoEAtualizar(${restaurante.id})">
+                  <i class="bi bi-heart-fill fs-4"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+
+          container.appendChild(coluna);
+        });
+      }
+
+      async function removerFavoritoEAtualizar(id) {
+        await removerFavorito(id);
+        carregarFavoritos();
+      }
+
+      document.addEventListener("DOMContentLoaded", carregarFavoritos);
+    </script>
+  </body>
+</html>

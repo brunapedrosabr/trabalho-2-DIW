@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mapa - GastroBH</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <!-- Cabeçalho -->
+    <header class="cabecalho">
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand logo" href="index.html">
+            <img
+              src="assets/img/Logo GastroBH.png"
+              alt="Logo GastroBH"
+              class="logo-img"
+            />
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#menu"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="menu">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#inicio">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#restaurantes"
+                  >Restaurantes</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="mapa.html">Mapa</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="index.html#sobre">Sobre mim</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Mapa -->
+    <main class="secao-mapa">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Lista lateral dos restaurantes -->
+          <div class="col-lg-3 sidebar-restaurantes">
+            <h3 class="titulo-sidebar">
+              <i class="bi bi-geo-alt-fill"></i> Restaurantes em BH
+            </h3>
+            <p class="text-muted small">
+              Clique em um restaurante para ver no mapa
+            </p>
+
+            <!-- Filtro de categoria -->
+            <div class="filtro-categoria mb-3">
+              <select id="filtro-categoria" class="form-select form-select-sm">
+                <option value="todos">Todas as categorias</option>
+                <option value="Frutos do Mar">Frutos do Mar</option>
+                <option value="Francesa">Francesa</option>
+                <option value="Mineira">Mineira</option>
+                <option value="Contemporânea">Contemporânea</option>
+                <option value="Hamburgueria">Hamburgueria</option>
+                <option value="Pizzaria">Pizzaria</option>
+                <option value="Italiana">Italiana</option>
+              </select>
+            </div>
+
+            <div id="lista-restaurantes" class="lista-restaurantes">
+              <!-- JS -->
+            </div>
+          </div>
+
+          <!-- Mapa -->
+          <div class="col-lg-9 p-0">
+            <div id="map" class="mapa-container"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="rodape">
+      <div class="container">
+        <p>© 2025 GastroBH - Todos os direitos reservados</p>
+      </div>
+    </footer>
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/scripts/mapa.js"></script>
+  </body>
+</html>

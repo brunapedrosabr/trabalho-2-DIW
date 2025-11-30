@@ -1,0 +1,20 @@
+{
+  "name": "trabalho-2-bruna",
+  "version": "1.0.0",
+  "description": "Projeto DIW - Cadastro e listagem de restaurantes usando JSON Server.",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server --watch db/db.json --port 3000",
+    "server": "json-server --watch db/db.json --port 3000"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
+  },
+  "keywords": [
+    "json-server",
+    "restaurantes",
+    "diw"
+  ],
+  "author": "Bruna",
+  "license": "ISC"
+}

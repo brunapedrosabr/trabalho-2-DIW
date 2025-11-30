@@ -1,0 +1,235 @@
+{
+  "usuarios": [
+    {
+      "id": "187cb7e5-e097-4224-8bc7-b610c855e2b1",
+      "login": "admin",
+      "senha": "123",
+      "nome": "Administrador do Sistema",
+      "email": "admin@gastrobh.com",
+      "admin": true,
+      "favoritos": [
+        3
+      ]
+    },
+    {
+      "id": "ec37c83d-4b7f-458d-9e10-3fda7d37cd3e",
+      "login": "user",
+      "senha": "123",
+      "nome": "Usuario Comum",
+      "email": "user@gastrobh.com",
+      "admin": false,
+      "favoritos": []
+    },
+    {
+      "id": "427ae231-8709-4b8d-8990-ea5e9c6ca9fe",
+      "login": "bruna",
+      "senha": "123",
+      "nome": "Bruna",
+      "email": "bruna@mail.com",
+      "admin": false,
+      "favoritos": [
+        1
+      ]
+    }
+  ],
+  "restaurantes": [
+    {
+      "id": "1",
+      "nome": "Coco Bambu",
+      "descricao": "Frutos do mar e pratos nordestinos em ambiente elegante.",
+      "conteudo": "O Coco Bambu é conhecido pela variedade de pratos com frutos do mar, porções generosas e ambiente refinado. Ideal para encontros em família ou comemorações especiais. A casa oferece um cardápio variado com opções que vão desde camarões até lagostas, sempre com ingredientes frescos e de alta qualidade.",
+      "categoria": "Frutos do Mar",
+      "destaque": true,
+      "endereco": "Av. Cristiano Machado, 4000 – União, BH",
+      "telefone": "(31) 2121-1200",
+      "horario": "Domingo, 11h30 às 22h; segunda a quinta, 11h30 às 23h; sexta e sábado, 11h30 às 00h",
+      "site": "www.cocobambu.com",
+      "preco_medio": "R$ 120,00 por pessoa",
+      "latitude": "-19.8744956",
+      "longitude": "-43.9265112",
+      "imagem_principal": "assets/img/coco_bambu.jpg",
+      "fotos": [
+        {
+          "id": 1,
+          "titulo": "Camarão internacional",
+          "imagem": "assets/img/camarao_internacional.png"
+        },
+        {
+          "id": 2,
+          "titulo": "Lagosta grelhada",
+          "imagem": "assets/img/lagosta_grelhada.png"
+        },
+        {
+          "id": 3,
+          "titulo": "Ambiente interno",
+          "imagem": "assets/img/ambiente_coco_bambu.png"
+        }
+      ]
+    },
+    {
+      "nome": "L'Entrecôte de Paris",
+      "descricao": "Experiência francesa com prato único e molho secreto.",
+      "conteudo": "O L'Entrecôte de Paris oferece uma experiência gastronômica francesa única. O conceito é simples: você não escolhe o prato, todos recebem a famosa entrecôte grelhada acompanhada de batatas fritas crocantes e o molho secreto da casa. A sobremesa vem incluída no menu fixo.",
+      "categoria": "Francesa",
+      "destaque": true,
+      "endereco": "Rua Alvarenga Peixoto, 655 – Lourdes, BH",
+      "telefone": "(11) 98922-1142",
+      "horario": "Domingo a terça, 12h às 22h; quarta a sábado, 12h às 23h",
+      "site": "www.lentrecotedeparis.com.br",
+      "preco_medio": "R$ 95,00 por pessoa",
+      "latitude": "-19.9307988",
+      "longitude": "-43.9447229",
+      "imagem_principal": "assets/img/lentrecote.jpg",
+      "fotos": [
+        {
+          "id": 1,
+          "titulo": "Entrecôte com molho secreto",
+          "imagem": "assets/img/steak_carne.png"
+        },
+        {
+          "id": 2,
+          "titulo": "Sobremesas francesas",
+          "imagem": "assets/img/sobremesa_francesa.png"
+        },
+        {
+          "id": 3,
+          "titulo": "Decoração parisiense",
+          "imagem": "assets/img/ambiente_lentrecote.png"
+        }
+      ],
+      "id": "2"
+    },
+    {
+      "id": "3",
+      "nome": "Xapuri",
+      "descricao": "Referência em comida mineira tradicional no fogão à lenha.",
+      "conteudo": "O Xapuri é um dos restaurantes mais tradicionais de Belo Horizonte. Localizado na Pampulha, oferece autêntica comida mineira preparada no fogão à lenha. O ambiente rústico e acolhedor, rodeado por natureza, proporciona uma experiência completa da cultura mineira.",
+      "categoria": "Mineira",
+      "destaque": true,
+      "endereco": "Rua Mandacarú, 260 - Trevo, BH",
+      "telefone": "(31) 3496-6198",
+      "horario": "Domingo, 11h às 17h; terça a sábado, 11h às 22h",
+      "site": "www.xapurirestaurante.com.br",
+      "preco_medio": "R$ 80,00 por pessoa",
+      "latitude": "-19.8416032",
+      "longitude": "-44.0034735",
+      "imagem_principal": "assets/img/xapuri.jpg",
+      "fotos": [
+        {
+          "id": 1,
+          "titulo": "Moranga recheada com carne seca",
+          "imagem": "assets/img/moranga.png"
+        },
+        {
+          "id": 2,
+          "titulo": "Fogão à lenha",
+          "imagem": "assets/img/fogao_a_lenha.png"
+        },
+        {
+          "id": 3,
+          "titulo": "Área externa",
+          "imagem": "assets/img/area_externa_xapuri.png"
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "nome": "Taste Vin",
+      "descricao": "Bistrô sofisticado com wine bar e harmonizações especiais.",
+      "conteudo": "O Taste Vin é um bistrô elegante que combina alta gastronomia com uma excelente carta de vinhos. O ambiente intimista é perfeito para jantares românticos ou reuniões de negócios. O menu degustação com harmonização é o carro-chefe da casa.",
+      "categoria": "Contemporânea",
+      "destaque": false,
+      "endereco": "Rua Curitiba, 2105 – Lourdes, BH",
+      "telefone": "(31) 3292-5423",
+      "horario": "Segunda e terça, 19h às 23h; quarta, 19h às 23h30; quinta e sexta, 19h às 00h; sábado, 12h30 às 16h e 19h às 23h30",
+      "site": "www.tastevinbh.com.br",
+      "preco_medio": "R$ 180,00 por pessoa",
+      "latitude": "-19.9312355",
+      "longitude": "-43.9446694",
+      "imagem_principal": "assets/img/frango_taste_vin.jpg",
+      "fotos": [
+        {
+          "id": 1,
+          "titulo": "Soufflé",
+          "imagem": "assets/img/sufle.jpg"
+        },
+        {
+          "id": 2,
+          "titulo": "Adega de vinhos",
+          "imagem": "assets/img/adega_vinhos.jpg"
+        },
+        {
+          "id": 3,
+          "titulo": "Área externa",
+          "imagem": "assets/img/area_externa_taste_vin.jpg"
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "nome": "Nimbos Bar",
+      "descricao": "Bar urbano com coquetelaria criativa, hamburgueria artesanal e ambiente descontraído.",
+      "conteudo": "O Nimbos Bar é um dos pontos mais descolados da Savassi, em Belo Horizonte. Com uma proposta que mistura bar de calçada e hamburgueria, oferece coquetéis autorais, cervejas artesanais e porções criativas. O ambiente tem estilo industrial com pegada urbana, ideal para encontros entre amigos e noites animadas. Música ao vivo e DJs são comuns nas quintas e sextas.",
+      "categoria": "Hamburgueria",
+      "destaque": false,
+      "endereco": "R. Sergipe, 629 - Savassi, BH",
+      "telefone": "(31) 3657-4149",
+      "horario": "Domingo, 17h às 23h; quarta a sábado, das 18h às 00h",
+      "site": "https://www.instagram.com/nimbosbar",
+      "preco_medio": "R$ 60,00 por pessoa",
+      "latitude": "-19.9322116",
+      "longitude": "-43.9366528",
+      "imagem_principal": "assets/img/hamburguer.png",
+      "fotos": [
+        {
+          "id": 1,
+          "titulo": "Coquetéis autorais",
+          "imagem": "assets/img/drinks_nimbos.jpeg"
+        },
+        {
+          "id": 2,
+          "titulo": "Ambiente urbano",
+          "imagem": "assets/img/ambiente_nimbos.jpeg"
+        },
+        {
+          "id": 3,
+          "titulo": "Porções criativas",
+          "imagem": "assets/img/nimbos.jpg"
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "nome": "Pizzaria Olegário",
+      "descricao": "Pizzas premiadas com massa artesanal e forno a lenha.",
+      "conteudo": "A Pizzaria Olegário é referência em Belo Horizonte pela qualidade e tradição. Suas pizzas são preparadas com massa de fermentação natural e assadas em forno a lenha, garantindo sabor e textura únicos. O cardápio inclui clássicos napolitanos e criações autorais, além de pratos à la carte e uma carta de vinhos selecionada. O ambiente sofisticado e o atendimento impecável tornam a experiência memorável.",
+      "categoria": "Pizzaria",
+      "destaque": false,
+      "endereco": "Av. Olegário Maciel, 1748 - Lourdes, BH",
+      "telefone": "(31) 3337-4446",
+      "horario": "Segunda a sexta, 12h às 15h e 18h às 23h; sábado e domingo, 12h às 16h e 18h às 23h",
+      "site": "https://www.redegourmet.com.br/marca/olegario",
+      "preco_medio": "R$ 70,00 por pessoa",
+      "latitude": "-19.9295411",
+      "longitude": "-43.947318",
+      "imagem_principal": "assets/img/pizzas.jpg",
+      "fotos": [
+        {
+          "id": 1,
+          "titulo": "Pizza artesanal",
+          "imagem": "assets/img/pizza.jpg"
+        },
+        {
+          "id": 2,
+          "titulo": "Forno a lenha",
+          "imagem": "assets/img/forno_pizzaria.jpg"
+        },
+        {
+          "id": 3,
+          "titulo": "Ambiente sofisticado",
+          "imagem": "assets/img/ambiente_pizzaria.png"
+        }
+      ]
+    }
+  ]
+}
